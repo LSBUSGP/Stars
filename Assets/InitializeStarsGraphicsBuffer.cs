@@ -7,13 +7,13 @@ public class InitializeStarsGraphicsBuffer : MonoBehaviour
 {
     [SerializeField] VisualEffect starsEffect;
     [SerializeField] ExposedProperty bufferProperty = "Stars";
-    [SerializeField] ExposedProperty bufferCountProperty = "Stars Count";
     [SerializeField] BrightStarCatalogue catalogue;
 
     GraphicsBuffer graphicsBuffer;
 
     void Awake()
     {
+        Application.targetFrameRate = 60;
         EnsureBufferCapacity(ref graphicsBuffer, catalogue.stars.Count, StarParticle.sizeOf, starsEffect, bufferProperty);
     }
 
@@ -22,8 +22,6 @@ public class InitializeStarsGraphicsBuffer : MonoBehaviour
         // Set Buffer data, but before that ensure there is enough capacity
         EnsureBufferCapacity(ref graphicsBuffer, catalogue.stars.Count, StarParticle.sizeOf, starsEffect, bufferProperty);
         graphicsBuffer.SetData(catalogue.stars);
-        // Update current number of elements
-        starsEffect.SetInt(bufferCountProperty, catalogue.stars.Count);
     }
 
     void OnDestroy()
