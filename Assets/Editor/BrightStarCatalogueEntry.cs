@@ -20,15 +20,13 @@ public struct BrightStarCatalogueEntry
 
     public StarParticle CreateStarParticle()
     {
-        const float distanceToSkyDome = 100.0f;
         Color colour = Mathf.CorrelatedColorTemperatureToRGB(temperature);
         Vector3 position;
         float rA = rightAscension;
         float decl = declination;
-        float r = distanceToSkyDome;
-        position.x = r * Mathf.Cos(rA) * Mathf.Cos(decl);
-        position.y = r * Mathf.Sin(rA) * Mathf.Cos(decl);
-        position.z = r * Mathf.Sin(decl);
+        position.x = Mathf.Cos(rA) * Mathf.Cos(decl);
+        position.y = Mathf.Sin(rA) * Mathf.Cos(decl);
+        position.z = Mathf.Sin(decl);
         return new ()
         {
             colour = (Vector4)colour,
