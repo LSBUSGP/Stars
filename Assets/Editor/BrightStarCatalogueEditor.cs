@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -18,13 +17,14 @@ public class BrightStarCatalogueEditor : Editor
 
     void InitializeStars()
     {
-        BrightStarCatalogue starList = (BrightStarCatalogue)target;
-        List<StarParticle> stars = new ();
+        BrightStarCatalogue starCatalogue = (BrightStarCatalogue)target;
+        Undo.RecordObject(starCatalogue, "Initialize Stars");
+        List<StarParticle> stars = new();
         foreach (BrightStarCatalogueEntry entry in BrightStarCatalogueData.Entries())
         {
             stars.Add(entry.CreateStarParticle());
         }
-
-        starList.stars = stars;
+        starCatalogue.stars = stars;
+        EditorUtility.SetDirty(starCatalogue);
     }
 }

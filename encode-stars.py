@@ -63,20 +63,21 @@ def parse_stars(filename):
             
 stars = parse_stars("BSC5")
 stars = sorted(stars, key=lambda star: star[3], reverse=True)
-boilerplate = """
-using System.Collections.Generic;
-
+boilerplate = """\
 public class BrightStarCatalogueData
 {{
-    public static IEnumerable<BrightStarCatalogueEntry> Entries()
+    public static BrightStarCatalogueEntry [] Entries()
     {{
+        return new BrightStarCatalogueEntry []
+        {{
 {}
+        }};
     }}
 }}
 """
 data = []
 for star in stars:
-    line = f'        yield return new BrightStarCatalogueEntry({star[0]}, {star[1]}f, {star[2]}f, {star[3]}f);'
+    line = f'            new BrightStarCatalogueEntry({star[0]}, {star[1]:.5f}f, {star[2]:.5f}f, {star[3]:.3f}f),'
     data.append(line)
 with open("Assets/Editor/BrightStarCatalogueData.cs", "w") as file:
    file.write(boilerplate.format('\n'.join(data)))
